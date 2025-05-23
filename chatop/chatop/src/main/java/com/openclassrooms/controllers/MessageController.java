@@ -1,6 +1,6 @@
 package com.openclassrooms.chatop.controller;
 
-import com.openclassrooms.chatop.dto.MessageRequestDTO;
+import com.openclassrooms.chatop.dto.CreateMessageDTO;
 import com.openclassrooms.chatop.dto.MessageResponseDTO;
 import com.openclassrooms.chatop.service.MessageService;
 import io.swagger.v3.oas.annotations.Operation;
@@ -29,7 +29,7 @@ public class MessageController {
         requestBody = @RequestBody(
             description = "Message to send",
             required = true,
-            content = @Content(schema = @Schema(implementation = MessageRequestDTO.class))
+            content = @Content(schema = @Schema(implementation = CreateMessageDTO.class))
         ),
         responses = {
             @ApiResponse(responseCode = "200", description = "Message sent successfully",
@@ -38,7 +38,7 @@ public class MessageController {
             @ApiResponse(responseCode = "500", description = "Internal server error", content = @Content)
         }
     )
-    public ResponseEntity<MessageResponseDTO> createMessage(@RequestBody MessageRequestDTO requestDTO) {
-        return ResponseEntity.ok(messageService.createMessage(requestDTO));
+    public ResponseEntity<MessageResponseDTO> createMessage(@RequestBody CreateMessageDTO dto) {
+        return ResponseEntity.ok(messageService.createMessage(dto));
     }
 }
