@@ -1,7 +1,7 @@
 package com.openclassrooms.controller;
 
-import com.openclassrooms.dto.RentalRequestDto;
-import com.openclassrooms.dto.RentalResponseDto;
+import com.openclassrooms.dto.CreateRentalDTO;
+import com.openclassrooms.dto.RentalDTO;
 import com.openclassrooms.service.RentalService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
@@ -27,16 +27,17 @@ public class RentalController {
         requestBody = @RequestBody(
             description = "Rental to create",
             required = true,
-            content = @Content(schema = @Schema(implementation = RentalRequestDto.class))
+            content = @Content(schema = @Schema(implementation = CreateRentalDTO.class))
         ),
         responses = {
             @ApiResponse(responseCode = "200", description = "Rental successfully created",
-                content = @Content(schema = @Schema(implementation = RentalResponseDto.class))),
+                content = @Content(schema = @Schema(implementation = RentalDTO.class))),
             @ApiResponse(responseCode = "400", description = "Invalid input", content = @Content),
             @ApiResponse(responseCode = "500", description = "Internal server error", content = @Content)
         }
     )
-    public ResponseEntity<RentalResponseDto> createRental(@RequestBody RentalRequestDto dto) {
-        return ResponseEntity.ok(rentalService.createRental(dto));
+    public ResponseEntity<RentalDTO> createRental(@RequestBody CreateRentalDTO dto) {
+        RentalDTO createdRental = rentalService.createRental(dto);
+        return ResponseEntity.ok(createdRental);
     }
 }
