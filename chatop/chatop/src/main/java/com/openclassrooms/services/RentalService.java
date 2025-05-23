@@ -1,8 +1,8 @@
 package com.openclassrooms.service;
 
-import com.openclassrooms.dto.RentalRequestDto;
-import com.openclassrooms.dto.RentalResponseDto;
+import com.openclassrooms.dto.CreateRentalDTO;
+import com.openclassrooms.dto.RentalDTO;
 
 public interface RentalService {
-    RentalResponseDto createRental(RentalRequestDto rentalDto);
+    RentalDTO createRental(CreateRentalDTO rentalDto);
 }

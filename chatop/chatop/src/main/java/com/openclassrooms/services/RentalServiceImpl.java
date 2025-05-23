@@ -1,7 +1,8 @@
 package com.openclassrooms.service.impl;
 
-import com.openclassrooms.dto.RentalRequestDto;
-import com.openclassrooms.dto.RentalResponseDto;
+import com.openclassrooms.dto.CreateRentalDTO;
+import com.openclassrooms.dto.RentalDTO;
+import com.openclassrooms.mapper.RentalMapper;
 import com.openclassrooms.model.Rental;
 import com.openclassrooms.repository.RentalRepository;
 import com.openclassrooms.service.RentalService;
@@ -17,31 +18,13 @@ public class RentalServiceImpl implements RentalService {
     private RentalRepository rentalRepository;
 
     @Override
-    public RentalResponseDto createRental(RentalRequestDto dto) {
-        Rental rental = Rental.builder()
-            .name(dto.getName())
-            .surface(dto.getSurface())
-            .price(dto.getPrice())
-            .picture(dto.getPicture())
-            .description(dto.getDescription())
-            .ownerId(dto.getOwnerId())
-            .createdAt(LocalDateTime.now())
-            .updatedAt(LocalDateTime.now())
-            .build();
+    public RentalDTO createRental(CreateRentalDTO dto) {
+        Rental rental = RentalMapper.fromCreateDTO(dto);
+        rental.setCreatedAt(LocalDateTime.now());
+        rental.setUpdatedAt(LocalDateTime.now());
 
         Rental saved = rentalRepository.save(rental);
 
-        RentalResponseDto response = new RentalResponseDto();
-        response.setId(saved.getId());
-        response.setName(saved.getName());
-        response.setSurface(saved.getSurface());
-        response.setPrice(saved.getPrice());
-        response.setPicture(saved.getPicture());
-        response.setDescription(saved.getDescription());
-        response.setOwnerId(saved.getOwnerId());
-        response.setCreatedAt(saved.getCreatedAt());
-        response.setUpdatedAt(saved.getUpdatedAt());
-
-        return response;
+        return RentalMapper.toDTO(saved);
     }
 }
