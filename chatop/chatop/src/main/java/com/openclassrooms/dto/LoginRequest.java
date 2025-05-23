@@ -1,9 +1,8 @@
-public class RegisterRequest {
+public class LoginRequest {
     private String email;
     private String password;
-    private String name;
 
-    public RegisterRequest() {}
+    public LoginRequest() {}
 
 
     public String getEmail() { return email; }
@@ -11,7 +10,4 @@ public class RegisterRequest {
 
     public String getPassword() { return password; }
     public void setPassword(String password) { this.password = password; }
-
-    public String getName() { return name; }
-    public void setName(String name) { this.name = name; }
 }
