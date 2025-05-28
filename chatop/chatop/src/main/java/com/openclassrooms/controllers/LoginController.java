@@ -1,6 +1,6 @@
 package com.openclassrooms.controllers;
 
-import com.openclassrooms.dto.LoginResponseDTO;
+import com.openclassrooms.dto.LoginResponse;
 import com.openclassrooms.services.JWTService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
@@ -26,13 +26,14 @@ public class LoginController {
         summary = "Authenticate user and return JWT token",
         responses = {
             @ApiResponse(responseCode = "200", description = "Token generated successfully",
-                content = @Content(schema = @Schema(implementation = LoginResponseDTO.class))),
+                content = @Content(schema = @Schema(implementation = LoginResponse.class))),
             @ApiResponse(responseCode = "401", description = "Invalid credentials", content = @Content),
             @ApiResponse(responseCode = "500", description = "Internal server error", content = @Content)
         }
     )
-    public LoginResponseDTO getToken(Authentication authentication) {
+    public LoginResponse getToken(Authentication authentication) {
         String token = jwtService.generateToken(authentication);
-        return new LoginResponseDTO(token);
+        return new LoginResponse("Connexion réussie", token);
     }
+
 }
