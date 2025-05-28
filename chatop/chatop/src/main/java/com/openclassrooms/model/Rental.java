@@ -23,6 +23,24 @@ public class Rental {
 
     private String description;
 
+
+    public Rental() {
+    }
+
+    public Rental(Long id, String name, Integer surface, Integer price, String picture,
+                String description, Long ownerId, LocalDateTime createdAt, LocalDateTime updatedAt) {
+        this.id = id;
+        this.name = name;
+        this.surface = surface;
+        this.price = price;
+        this.picture = picture;
+        this.description = description;
+        this.ownerId = ownerId;
+        this.createdAt = createdAt;
+        this.updatedAt = updatedAt;
+    }
+
+
     @Column(name = "owner_id")
     private Long ownerId;
 
@@ -32,7 +50,6 @@ public class Rental {
     @Column(name = "updated_at")
     private LocalDateTime updatedAt;
 
-    // === GETTERS & SETTERS ===
 
     public Long getId() {
         return id;
