@@ -1,3 +1,12 @@
+package com.openclassrooms.mapper;
+
+import com.openclassrooms.model.Message;
+import com.openclassrooms.dto.MessageDTO;
+import com.openclassrooms.dto.CreateMessageDTO;
+
+
+
+
 import java.time.format.DateTimeFormatter;
 
 public class MessageMapper {
@@ -20,6 +29,14 @@ public class MessageMapper {
         message.setRentalId(dto.getRentalId());
         message.setUserId(dto.getUserId());
         message.setMessage(dto.getMessage());
+        return message;
+    }
+
+        public static Message fromCreateDTO(CreateMessageDTO dto) {
+        Message message = new Message();
+        message.setMessage(dto.getMessage());
+        message.setRentalId(dto.getRentalId());
+        message.setUserId(dto.getUserId());
         return message;
     }
 }
