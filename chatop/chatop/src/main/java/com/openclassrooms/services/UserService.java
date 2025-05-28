@@ -22,18 +22,20 @@ public class UserService {
     // Inscription
     public RegisterResponse registerUser(RegisterRequest dto) {
         // Vérifier si l'email existe déjà
-        if (userRepository.findByEmail(dto.getEmail()).isPresent()) {
+        User existingUser = userRepository.findByEmail(dto.getEmail());
+
+        if (existingUser != null) {
             throw new RuntimeException("Email already registered");
         }
 
         // Mappe DTO vers User
-        User user = AuthMapper.toUser(dto);
+        User newUser = AuthMapper.toUser(dto);
 
         // Encode le mot de passe
-        user.setPassword(passwordEncoder.encode(user.getPassword()));
+        newUser.setPassword(passwordEncoder.encode(newUser.getPassword()));
 
         // Sauvegarde en base
-        User savedUser = userRepository.save(user);
+        User savedUser = userRepository.save(newUser);
 
         // Mappe vers réponse
         return AuthMapper.toRegisterResponse(savedUser, "User registered successfully");
@@ -41,15 +43,9 @@ public class UserService {
 
     // Connexion
     public LoginResponse loginUser(LoginRequest dto) {
-        Optional<User> optionalUser = userRepository.findByEmail(dto.getEmail());
-        if (optionalUser.isEmpty()) {
-            throw new RuntimeException("Invalid credentials");
-        }
+        User user = userRepository.findByEmail(dto.getEmail());
 
-        User user = optionalUser.get();
-
-        // Vérifie mot de passe
-        if (!passwordEncoder.matches(dto.getPassword(), user.getPassword())) {
+        if (user == null || !passwordEncoder.matches(dto.getPassword(), user.getPassword())) {
             throw new RuntimeException("Invalid credentials");
         }
 
@@ -60,11 +56,11 @@ public class UserService {
     }
 
     // Récupérer user par ID
-    public UserResponse getUserById(Long id) {
+    public UserResponseDTO getUserById(Long id) {
         Optional<User> optionalUser = userRepository.findById(id);
         if (optionalUser.isPresent()) {
             User user = optionalUser.get();
-            return new UserResponse(user.getId(), user.getEmail(), user.getName());
+            return new UserResponseDTO(user.getId(), user.getEmail(), user.getName());
         } else {
             throw new RuntimeException("User not found with ID: " + id);
         }
