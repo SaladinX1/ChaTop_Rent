@@ -1,7 +1,7 @@
 package com.openclassrooms.service;
 
-import com.openclassrooms.dto.AuthRequest;
-import com.openclassrooms.dto.AuthResponse;
+import com.openclassrooms.dto.RegisterRequest;
+import com.openclassrooms.dto.RegisterResponse;
 import com.openclassrooms.model.User;
 import com.openclassrooms.repository.UserRepository;
 import io.jsonwebtoken.Jwts;
@@ -26,7 +26,7 @@ public class AuthService {
         this.passwordEncoder = passwordEncoder;
     }
 
-    public AuthResponse login(AuthRequest request) {
+    public RegisterResponse login(RegisterRequest request) {
         User user = userRepository.findByEmail(request.getEmail());
         if (user == null || !passwordEncoder.matches(request.getPassword(), user.getPassword())) {
             throw new RuntimeException("Invalid credentials");
@@ -39,6 +39,6 @@ public class AuthService {
                 .signWith(SignatureAlgorithm.HS256, jwtSecret.getBytes())
                 .compact();
 
-        return new AuthResponse(token);
-    }
+        return new RegisterResponse("Connexion réussie", user.getId());
+     }
 }
