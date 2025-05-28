@@ -1,3 +1,11 @@
+package com.openclassrooms.mapper;
+
+import com.openclassrooms.dto.RentalDTO;
+import com.openclassrooms.dto.CreateRentalDTO;
+
+import com.openclassrooms.model.Rental;
+
+
 import java.time.format.DateTimeFormatter;
 
 public class RentalMapper {
