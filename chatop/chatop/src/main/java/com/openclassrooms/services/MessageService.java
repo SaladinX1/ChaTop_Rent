@@ -1,10 +1,10 @@
-package com.openclassrooms.chatop.service;
+package com.openclassrooms.service;
 
-import com.openclassrooms.chatop.dto.CreateMessageDTO;
-import com.openclassrooms.chatop.dto.MessageResponseDTO;
-import com.openclassrooms.chatop.mapper.MessageMapper;
-import com.openclassrooms.chatop.model.Message;
-import com.openclassrooms.chatop.repository.MessageRepository;
+import com.openclassrooms.dto.CreateMessageDTO;
+import com.openclassrooms.dto.MessageDTO;
+import com.openclassrooms.mapper.MessageMapper;
+import com.openclassrooms.model.Message;
+import com.openclassrooms.repository.MessageRepository;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -16,9 +16,17 @@ public class MessageService {
         this.messageRepository = messageRepository;
     }
 
-    public MessageResponseDTO createMessage(CreateMessageDTO dto) {
+    public MessageDTO createMessage(CreateMessageDTO dto) {
         Message message = MessageMapper.fromCreateDTO(dto);
-        messageRepository.save(message);
-        return new MessageResponseDTO("Message sent with success");
+        Message savedMessage = messageRepository.save(message);
+        MessageDTO messageDTO = new MessageDTO(
+            savedMessage.getId(),
+            savedMessage.getRentalId(),
+            savedMessage.getUserId(),
+            savedMessage.getMessage(),
+            savedMessage.getCreatedAt().toString()
+        );
+        return messageDTO;
     }
+
 }
