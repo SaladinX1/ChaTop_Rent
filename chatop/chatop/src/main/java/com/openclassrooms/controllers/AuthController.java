@@ -1,13 +1,14 @@
 package com.openclassrooms.controller;
 
-import com.openclassrooms.dto.AuthRequest;
-import com.openclassrooms.dto.AuthResponse;
+import com.openclassrooms.dto.RegisterRequest;
+import com.openclassrooms.dto.RegisterResponse;
 import com.openclassrooms.service.AuthService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import io.swagger.v3.oas.annotations.parameters.RequestBody;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -22,25 +23,34 @@ public class AuthController {
     @PostMapping("/login")
     @Operation(
         summary = "Authenticate a user and return a JWT token",
-        requestBody = @io.swagger.v3.oas.annotations.parameters.RequestBody(
-            description = "User credentials",
+        description = "Provide valid email and password to authenticate and receive a JWT token.",
+        requestBody = @RequestBody(
+            description = "User credentials required for login",
             required = true,
-            content = @Content(schema = @Schema(implementation = AuthRequest.class))
+            content = @Content(
+                mediaType = "application/json",
+                schema = @Schema(implementation = RegisterRequest.class)
+            )
         ),
         responses = {
             @ApiResponse(
                 responseCode = "200",
                 description = "Authentication successful",
-                content = @Content(schema = @Schema(implementation = AuthResponse.class))
+                content = @Content(
+                    mediaType = "application/json",
+                    schema = @Schema(implementation = RegisterResponse.class)
+                )
             ),
             @ApiResponse(
                 responseCode = "401",
-                description = "Authentication failed - bad credentials",
-                content = @Content
+                description = "Unauthorized - Invalid credentials",
+                content = @Content(
+                    mediaType = "application/json"
+                )
             )
         }
     )
-    public AuthResponse login(@RequestBody AuthRequest request) {
+    public RegisterResponse login(@RequestBody RegisterRequest request) {
         return authService.login(request);
     }
 }
