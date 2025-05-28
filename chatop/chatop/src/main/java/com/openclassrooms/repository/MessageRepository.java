@@ -1,6 +1,6 @@
-package com.openclassrooms.chatop.repository;
+package com.openclassrooms.repository;
 
-import com.openclassrooms.chatop.model.Message;
+import com.openclassrooms.model.Message;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface MessageRepository extends JpaRepository<Message, Long> {}
