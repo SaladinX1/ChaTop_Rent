@@ -1,3 +1,14 @@
+package com.openclassrooms.mapper;
+
+import com.openclassrooms.dto.RegisterResponse;
+import com.openclassrooms.dto.RegisterRequest;
+import com.openclassrooms.dto.LoginRequest;
+import com.openclassrooms.dto.LoginResponse;
+
+import com.openclassrooms.model.User;
+
+
+
 public class AuthMapper {
 
     // Mappe RegisterRequest → User 
