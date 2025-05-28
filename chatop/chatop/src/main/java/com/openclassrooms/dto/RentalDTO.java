@@ -1,17 +1,38 @@
+package com.openclassrooms.dto;
+
+import io.swagger.v3.oas.annotations.media.Schema;
+
+@Schema(description = "Représente une location de logement")
 public class RentalDTO {
 
+    @Schema(description = "Identifiant unique de la location", example = "1")
     private Long id;
+
+    @Schema(description = "Nom du logement", example = "Appartement cosy à Paris")
     private String name;
+
+    @Schema(description = "Surface du logement en mètres carrés", example = "45")
     private Integer surface;
+
+    @Schema(description = "Prix mensuel du loyer en euros", example = "1200")
     private Integer price;
+
+    @Schema(description = "URL de l'image du logement", example = "https://example.com/image.jpg")
     private String picture;
+
+    @Schema(description = "Description du logement", example = "Appartement lumineux et bien situé.")
     private String description;
+
+    @Schema(description = "Identifiant de l'utilisateur propriétaire du logement", example = "3")
     private Long ownerId;
+
+    @Schema(description = "Date de création de l'annonce (format ISO 8601)", example = "2024-05-21T10:15:30")
     private String createdAt;
+
+    @Schema(description = "Date de dernière mise à jour de l'annonce (format ISO 8601)", example = "2024-06-01T14:20:00")
     private String updatedAt;
 
     public RentalDTO() {}
-
 
     public Long getId() { return id; }
     public void setId(Long id) { this.id = id; }
