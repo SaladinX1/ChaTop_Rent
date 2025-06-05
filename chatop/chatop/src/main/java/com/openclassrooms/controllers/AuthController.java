@@ -12,8 +12,9 @@ import io.swagger.v3.oas.annotations.parameters.RequestBody;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+@CrossOrigin(origins = "http://localhost:4200")
 @RestController
-@RequestMapping("/auth")
+@RequestMapping("api/auth")
 @Tag(name = "Authentication", description = "Endpoints for user authentication")
 public class AuthController {
 
@@ -53,4 +54,6 @@ public class AuthController {
     public RegisterResponse login(@RequestBody RegisterRequest request) {
         return authService.login(request);
     }
+
+    
 }
