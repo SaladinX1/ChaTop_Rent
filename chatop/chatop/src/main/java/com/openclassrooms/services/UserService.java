@@ -138,7 +138,9 @@ public class UserService {
    // Authentication authentication = new UsernamePasswordAuthenticationToken(user.getEmail(), user.getPassword());
     String token = jwtService.generateToken(authentication);
 
-    return AuthMapper.toLoginResponse("Login successful", token);
+   // return AuthMapper.toLoginResponse("Login successful", token);
+    return AuthMapper.toLoginResponse("Connexion réussie", token, user.getId());
+
 }
 
 
