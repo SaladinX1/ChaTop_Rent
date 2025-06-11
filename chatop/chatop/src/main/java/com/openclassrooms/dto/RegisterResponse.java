@@ -14,10 +14,10 @@ public class RegisterResponse {
 
     public RegisterResponse() {}
 
-    public RegisterResponse(String message, Long userId) {
-        this.message = message;
-        this.userId = userId;
-    }
+   public RegisterResponse(String message, Long userId) {
+    this.message = message;
+    this.userId = userId;
+}
 
     public String getMessage() { return message; }
     public void setMessage(String message) { this.message = message; }
