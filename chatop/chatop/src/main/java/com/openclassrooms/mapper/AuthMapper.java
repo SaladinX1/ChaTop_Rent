@@ -11,6 +11,9 @@ import com.openclassrooms.model.User;
 
 public class AuthMapper {
 
+   
+
+
     // Mappe RegisterRequest → User 
     public static User toUser(RegisterRequest dto) {
         if (dto == null) return null;
@@ -36,8 +39,9 @@ public class AuthMapper {
         return user;
     }
 
-    // Mappe données pour LoginResponse 
-    public static LoginResponse toLoginResponse(String message, String token) {
-        return new LoginResponse(message, token);
-    }
+        // Mappe données pour LoginResponse 
+public static LoginResponse toLoginResponse(String message, String token, Long userId) {
+    return new LoginResponse(message, token, userId);
+}
+
 }
