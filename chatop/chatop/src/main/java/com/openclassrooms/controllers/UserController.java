@@ -8,7 +8,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("/api/auth")
+@CrossOrigin(origins = "http://localhost:4200")
+@RequestMapping("/api/user")
 public class UserController {
 
     private final UserService userService;
@@ -33,10 +34,14 @@ public class UserController {
         return ResponseEntity.ok(response);
     }
 
-    @Operation(summary = "Login user", description = "Authenticate user and return token")
+  @Operation(summary = "Login user", description = "Authenticate user and return token")
     @PostMapping("/login")
     public ResponseEntity<LoginResponse> login(@RequestBody LoginRequest request) {
         LoginResponse response = userService.loginUser(request);
         return ResponseEntity.ok(response);
     }
+
+
+
+
 }
